@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.4'
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id 'java'
+    id 'war'
+    id 'application'
+}
+
+mainClassName = 'hugo_test.Main'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    //spring y sus dependencias
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.5'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.6.5'
+
+    //DB
+    //spring db
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.5'
+    //h2 DB
+    implementation 'com.h2database:h2:2.1.212'
+    //para las anotaciones de las entidades
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+
+    //validation
+    //para los annotations, el validator me lo da hibernate que me lo da spring y lo otro en clean-core
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
+    //OpenApi docs
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+
+}
