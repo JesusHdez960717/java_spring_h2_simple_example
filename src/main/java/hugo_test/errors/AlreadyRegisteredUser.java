@@ -26,7 +26,7 @@ import org.springframework.http.HttpStatus;
 public class AlreadyRegisteredUser extends ApiException {
 
     public AlreadyRegisteredUser(String message) {
-        super(HttpStatus.CONFLICT, message);
+        super(HttpStatus.CONFLICT, String.format("El correo %s ya registrado", message));
     }
 
 }
