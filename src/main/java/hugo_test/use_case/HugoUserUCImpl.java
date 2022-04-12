@@ -19,6 +19,7 @@ package hugo_test.use_case;
 import hugo_test.domain.Domains.*;
 import hugo_test.entities.*;
 import hugo_test.repo.*;
+import hugo_test.validation.Validation;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,6 +52,9 @@ public class HugoUserUCImpl implements HugoUserUC {
         List<HugoPhone> phones = HugoUserConverter.instance().convertPhones(newUser.phones(), hugoUser);
 
         //validar lo que me entran
+        Validation.validateAndThrow(hugoUser);
+        Validation.validateAndThrow(phones);
+        
         //persisto la informacion
         repoUser.save(hugoUser);
         repoPhone.saveAll(phones);
