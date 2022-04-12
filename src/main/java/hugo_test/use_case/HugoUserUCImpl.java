@@ -57,7 +57,7 @@ public class HugoUserUCImpl implements HugoUserUC {
         //validar lo que me entran
         Validation.validateAndThrow(hugoUser);
         //valiad pass antes del hash
-        if (!Pattern.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])$", newUser.password())) {
+        if (!Pattern.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{5,50}$", newUser.password())) {
             throw new ValidationError("Contraseña debil");
         }
         phones.forEach((phone) -> {
