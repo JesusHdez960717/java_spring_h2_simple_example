@@ -17,14 +17,12 @@
 package hugo_test.errors;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
  */
-@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 public class ValidationError extends ApiException {
 
     public ValidationError(String message) {
