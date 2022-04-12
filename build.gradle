@@ -8,6 +8,8 @@ plugins {
 
 mainClassName = 'hugo_test.Main'
 
+version = '1.0.0.SNAPSHOT.20220411'
+
 repositories {
     jcenter()
     mavenCentral()
