@@ -26,4 +26,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface HugoUserRepo extends CrudRepository<HugoUser, String> {
 
+    public HugoUser findByEmail(String email);
 }
