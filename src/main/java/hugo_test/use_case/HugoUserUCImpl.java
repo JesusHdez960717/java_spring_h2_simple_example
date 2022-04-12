@@ -18,9 +18,12 @@ package hugo_test.use_case;
 
 import hugo_test.domain.Domains.*;
 import hugo_test.entities.*;
+import hugo_test.errors.AlreadyRegisteredUser;
+import hugo_test.errors.ValidationError;
 import hugo_test.repo.*;
 import hugo_test.validation.Validation;
 import java.util.*;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,8 +56,17 @@ public class HugoUserUCImpl implements HugoUserUC {
 
         //validar lo que me entran
         Validation.validateAndThrow(hugoUser);
-        Validation.validateAndThrow(phones);
-        
+        //valiad pass antes del hash
+        if (!Pattern.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])$", newUser.password())) {
+            throw new ValidationError("Contraseña debil");
+        }
+        phones.forEach((phone) -> {
+            Validation.validateAndThrow(phone);
+        });
+        if (repoUser.findByEmail(hugoUser.getEmail()) != null) {
+            throw new AlreadyRegisteredUser(hugoUser.getEmail());
+        }
+
         //persisto la informacion
         repoUser.save(hugoUser);
         repoPhone.saveAll(phones);
