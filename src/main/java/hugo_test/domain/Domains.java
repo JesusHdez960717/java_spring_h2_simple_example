@@ -16,7 +16,6 @@
  */
 package hugo_test.domain;
 
-import hugo_test.validation.Password;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.constraints.*;
@@ -36,7 +35,6 @@ public class Domains {
             @NotEmpty(message = "e-mail can't be empty")
             @Size(max = 100, message = "e-mail too long")
             String email,
-            @Password(message = "weak passwork")
             @NotEmpty(message = "password can't be empty")
             @Size(max = 100, message = "password too long")
             String password,
