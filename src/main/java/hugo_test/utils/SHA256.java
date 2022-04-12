@@ -14,27 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hugo_test;
+package hugo_test.utils;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
  */
-@SpringBootApplication
-public class Main extends SpringBootServletInitializer {
+public class SHA256 {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Main.class);
+    public static String hash(String pass) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] arr = digest.digest(pass.getBytes());
+            return String.format("%1$064x", new java.math.BigInteger(1, arr));
+        } catch (NoSuchAlgorithmException ex) {//nunca se da, el algoritmo si existe
+            throw new RuntimeException("hashing password error");
+        }
     }
 }

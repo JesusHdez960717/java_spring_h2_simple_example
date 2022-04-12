@@ -14,27 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hugo_test;
+package hugo_test.repo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import hugo_test.entities.*;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
  */
-@SpringBootApplication
-public class Main extends SpringBootServletInitializer {
+public interface HugoUserRepo extends CrudRepository<HugoUser, String> {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Main.class);
-    }
+    public HugoUser findByEmail(String email);
 }

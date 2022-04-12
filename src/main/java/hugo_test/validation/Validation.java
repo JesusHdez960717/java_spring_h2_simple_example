@@ -14,27 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hugo_test;
+package hugo_test.validation;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import hugo_test.errors.ValidationError;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 /**
  *
  * @author Root101 (jhernandezb96@gmail.com, +53-5-426-8660)
  * @author JesusHdezWaterloo@Github
  */
-@SpringBootApplication
-public class Main extends SpringBootServletInitializer {
+public class Validation {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+    //Created static to avoid recreated every time a validation occur
+    private static final Validator DEFAULT_VALIDATOR = javax.validation.Validation.buildDefaultValidatorFactory().getValidator();
+
+    public static Set<ConstraintViolation<Object>> validate(Object object) {
+        return DEFAULT_VALIDATOR.validate(object);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(Main.class);
+    public static void validateAndThrow(Object object) throws ValidationError {
+        Set<ConstraintViolation<Object>> errors = DEFAULT_VALIDATOR.validate(object);
+        if (!errors.isEmpty()) {
+            throw new ValidationError(errors.iterator().next().getMessage());
+        }
     }
 }
